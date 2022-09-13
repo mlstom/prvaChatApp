@@ -26,7 +26,11 @@ export default function Home() {
       {message, username}
     ])
   }
-  
+  const handleEnter= (e)=>{
+    if (e.keyCode == 13) {
+      sendMessage(e)
+   }
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -37,15 +41,15 @@ export default function Home() {
       <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: '20px', padding: '50px 10px' }}>
         <input type='text' value={username} onChange={(e) => setusername(e.target.value)} style={{ width: '100px' }} />
         {
-          messages?.map((msg) => <>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+          messages?.map((msg,index) => <>
+            <div key={index} style={{ display: 'flex', justifyContent: 'center' }}>
               <p>{msg.username} : </p>
               <p>{msg.message}</p>
             </div>
           </>)
         }
         <div style={{ display: 'flex',gap:'10px'}}>
-          <input type='text' value={message} onChange={(e) => setmessage(e.target.value)} style={{ width: '200px' }} />
+          <input type='text' value={message} onChange={(e) => setmessage(e.target.value)} style={{ width: '200px' }} onKeyUp={(e)=>handleEnter(e)} />
           <button type='button' style={{ width: '80px' }} onClick={(e)=>sendMessage(e)} >Potvrdi</button>
         </div>
       </div>
