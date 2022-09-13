@@ -6,12 +6,13 @@ export default function handlerSocketimport(req, res) {
     } else {
         console.log('*First runnig, Socket is initializing')
         const io = new Server(res.socket.server)
-        
+
         io.on('connection', socket => {
             socket.on('newMessage',msgs=>{
                 socket.broadcast.emit('updatedMessages',msgs)
             })
         })
+        
         res.socket.server.io = io
     }
     res.end()
